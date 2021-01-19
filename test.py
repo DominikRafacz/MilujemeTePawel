@@ -9,16 +9,18 @@ sparql.setQuery("""
     WHERE
     {
     ?item rdf:type schema:MusicComposition ;
-        ?prop ?val . }
-    LIMIT 100
+        ?prop ?val . 
+    FILTER(?prop IN (<http://www.w3.org/2000/01/rdf-schema#label>, <http://www.w3.org/2000/01/rdf-schema#comment>, 
+    schema:alternateName, schema:datePublished, schema:composer, schema:isPartOf, schema:genre, schema:inLanguage, 
+    schema:lyricist, schema:producer, schema:dateCreated, schema:author, schema:isBasedOn, schema:about, schema:award, 
+    schema:creator, schema:contributor, schema:publisher, schema:translator)
+)
+    }
+LIMIT 1000
 """)
 sparql.setReturnFormat(JSON)
 results = sparql.query().convert()
 
-# print(json.dumps(results["results"]["bindings"], indent=4))
-
-
-print(len(results["results"]["bindings"]))
 
 tmp = {}
 for result in results["results"]["bindings"]:
@@ -27,6 +29,8 @@ for result in results["results"]["bindings"]:
     except (KeyError) as e:
         tmp[result['item']['value']] = []
 
-    tmp[result['item']['value']].append({"prop":result['prop'], "val": result['val']})
+    tmp[result['item']['value']].append({"prop": result['prop'], "val": result['val']})
 
 print(json.dumps(tmp, indent=4))
+
+
