@@ -1,5 +1,6 @@
 from SPARQLWrapper import SPARQLWrapper, JSON
 import json
+import dateutil.parser as parser
 
 sparql = SPARQLWrapper("https://yago-knowledge.org/sparql/query")
 sparql.setQuery("""
@@ -29,6 +30,8 @@ for result in results["results"]["bindings"]:
     except (KeyError) as e:
         tmp[result['item']['value']] = []
 
+    if result['prop']['value'] in ("http://schema.org/dateCreated", "http://schema.org/datePublished"):
+        result['val']['value'] = parser.parse(result['val']['value']).year
     tmp[result['item']['value']].append({"prop": result['prop'], "val": result['val']})
 
 print(json.dumps(tmp, indent=4))
