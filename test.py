@@ -23,6 +23,5 @@ for result in results["results"]["bindings"]:
         tmp[result['item']['value']] = []
         
     tmp[result['item']['value']].append({"prop":result['prop'], "val": result['val']})
-    
-print(tmp)
+
 print(json.dumps(tmp, indent=4))
