@@ -25,17 +25,29 @@ def match_properties(obj_first, obj_second):
     return matched, mismatched
 
 
+def linear_dist(x, y):
+    return abs(int(x) - int(y))
+
+
+def iterate_over_key(obj_first, obj_second, matched, key, dist_function):
+    lowest_distance = sys.maxsize
+    for pos_match_first in matched[key]['first']:
+        for pos_match_second in matched[key]['second']:
+            dist = dist_function(obj_first[pos_match_first]['val']['value'],
+                                 obj_second[pos_match_second]['val']['value'])
+            if dist < lowest_distance:
+                lowest_distance = dist
+    return lowest_distance
+
+
 def calculate_metric(obj_first, obj_second):
     matched, mismatched = match_properties(obj_first, obj_second)
     scores = {}
     for key in matched.keys():
-        lowest_distance = sys.maxsize
-        for pos_match_first in matched[key]['first']:
-            for pos_match_second in matched[key]['second']:
-                dist = Levenshtein.distance(obj_first[pos_match_first]['val']['value'],
-                                            obj_second[pos_match_second]['val']['value'])
-                if dist < lowest_distance:
-                    lowest_distance = dist
+        if key in ("http://schema.org/datePublished", "http://schema.org/dateCreated"):
+            lowest_distance = iterate_over_key(obj_first, obj_second, matched, key, linear_dist)
+        else:
+            lowest_distance = iterate_over_key(obj_first, obj_second, matched, key, Levenshtein.distance)
         scores[key] = 1 / (1 + lowest_distance)
     score = sum(scores.values()) / (len(matched) + len(mismatched) / 2)
     return score
