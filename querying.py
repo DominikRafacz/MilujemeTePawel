@@ -7,7 +7,7 @@ def reformat_results(results):
     for result in results["results"]["bindings"]:
         try:
             ret[result['item']['value']]
-        except (KeyError) as e:
+        except KeyError:
             ret[result['item']['value']] = []
 
         if result['prop']['value'] in ("http://schema.org/dateCreated", "http://schema.org/datePublished"):
@@ -15,6 +15,7 @@ def reformat_results(results):
         ret[result['item']['value']].append({"prop": result['prop'], "val": result['val']})
 
 
+# mock function
 def query():
     sparql = SPARQLWrapper("https://yago-knowledge.org/sparql/query")
     sparql.setQuery("""
