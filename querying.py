@@ -17,7 +17,7 @@ def reformat_results(results):
 
 
 # mock function
-def query():
+def mock_query():
     sparql = SPARQLWrapper("https://yago-knowledge.org/sparql/query")
     sparql.setQuery("""
         PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>

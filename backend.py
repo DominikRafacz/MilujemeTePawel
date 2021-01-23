@@ -1,7 +1,7 @@
 import json
 
-from querying import query
-from compare import calculate_metric_for_each
+from querying import mock_query
+from scoring import calculate_score_for_all
 
 
 # mock
@@ -11,9 +11,9 @@ def prepare_object(params):
 
 
 def metrics_for_query(query_params):
-    results = query()
+    results = mock_query()
     prepared = prepare_object(query_params)
-    return calculate_metric_for_each(prepared, results)
+    return calculate_score_for_all(prepared, results)
 
 
 def save_metrics_for_query(scores):

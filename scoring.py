@@ -40,7 +40,7 @@ def iterate_over_key(obj_first, obj_second, matched, key, dist_function):
     return lowest_distance
 
 
-def calculate_metric(obj_first, obj_second):
+def calculate_score(obj_first, obj_second):
     matched, mismatched = match_properties(obj_first, obj_second)
     scores = {}
     for key in matched.keys():
@@ -53,5 +53,5 @@ def calculate_metric(obj_first, obj_second):
     return {'total_score': score, 'partial_scores': scores}
 
 
-def calculate_metric_for_each(obj_first, obj_others):
-    return {key: calculate_metric(obj_first, obj_others[key]) for key in obj_others.keys()}
+def calculate_score_for_all(obj_first, obj_others):
+    return {key: calculate_score(obj_first, obj_others[key]) for key in obj_others.keys()}
