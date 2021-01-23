@@ -51,3 +51,7 @@ def calculate_metric(obj_first, obj_second):
         scores[key] = 1 / (1 + lowest_distance)
     score = sum(scores.values()) / (len(matched) + len(mismatched) / 2)
     return {'total_score': score, 'partial_scores': scores}
+
+
+def calculate_metric_for_each(obj_first, obj_others):
+    return {key: calculate_metric(obj_first, obj_others[key]) for key in obj_others.keys()}

@@ -13,6 +13,7 @@ def reformat_results(results):
         if result['prop']['value'] in ("http://schema.org/dateCreated", "http://schema.org/datePublished"):
             result['val']['value'] = parser.parse(result['val']['value']).year
         ret[result['item']['value']].append({"prop": result['prop'], "val": result['val']})
+    return ret
 
 
 # mock function
