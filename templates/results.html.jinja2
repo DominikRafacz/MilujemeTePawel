@@ -1,1 +1,22 @@
-Hello world!
+<!doctype html>
+<head>
+    <title>Results</title>
+    <link rel="stylesheet" href="../static/results-style.css">
+</head>
+<body>
+    <div class="res_container">
+        {% for entity in scores %}
+        <div class="result">
+            {{ entity['entity'] }} <br>
+            {{ entity['total_score'] }} <br>
+            <a href="#" class="link_hide">Show score details</a>
+            <a href="#" class="link_show">Hide</a>
+            <div class="result_details">
+                {% for key in entity['scores'].keys() %}
+                {{ key }} : {{ entity['scores'][key] }} <br>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
