@@ -1,17 +1,18 @@
 import json
 
-from querying import mock_query
+import rdflib
+from rdflib.term import Literal
+
+from querying import query
 from scoring import calculate_score_for_all
 
 
-# mock
 def prepare_object(params):
-    with open('data/tmp.json', 'r') as file:
-        return json.load(file)
+    return [{'prop': prop, 'val': rdflib.term.Literal(params[prop])} for prop in params.keys()]
 
 
 def scores_for_query(query_params):
-    results = mock_query()
+    results = query(query_params)
     prepared = prepare_object(query_params)
     return calculate_score_for_all(prepared, results)
 
