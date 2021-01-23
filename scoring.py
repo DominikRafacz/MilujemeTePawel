@@ -50,8 +50,11 @@ def calculate_score(obj_first, obj_second):
             lowest_distance = iterate_over_key(obj_first, obj_second, matched, key, Levenshtein.distance)
         scores[key] = 1 / (1 + lowest_distance)
     score = sum(scores.values()) / (len(matched) + len(mismatched) / 2)
-    return {'total_score': score, 'partial_scores': scores}
+    return score, scores
 
 
 def calculate_score_for_all(obj_first, obj_others):
-    return {key: calculate_score(obj_first, obj_others[key]) for key in obj_others.keys()}
+    return sorted([{'entity': key,
+                    'total_score': (sc := calculate_score(obj_first, obj_others[key]))[0],
+                    'scores': sc[1]}
+                   for key in obj_others.keys()], key=lambda ent: -ent['total_score'])
