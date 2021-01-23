@@ -1,25 +1,40 @@
 import dateutil.parser as parser
-from rdflib.plugins.stores.sparqlstore import SPARQLStore
 from rdflib import Namespace
 from rdflib.namespace import FOAF, RDF, RDFS, XSD
-from rdflib.term import Literal, URIRef
+from rdflib.plugins.stores.sparqlstore import SPARQLStore
+from util import EmptyFormException
 
 
-def prepare_queery(query_params):
-    print(query_params)
-    params = [prop for prop in query_params.keys() if query_params[prop] != '']
-    if len(params) == 0:
-        raise BaseException
+def check_form_params(form_params):
+    if all(map(lambda key: (form_params['props'][key] == ''), form_params['props'].keys())):
+        raise EmptyFormException('Form has no field filled')
+
+
+# mock
+def prepare_filter_string(form_params):
+    return ''
+
+
+def get_chosen_properties_filter():
+    return """
+    FILTER(?prop IN (<http://www.w3.org/2000/01/rdf-schema#label>, <http://www.w3.org/2000/01/rdf-schema#comment>, 
+        schema:alternateName, schema:datePublished, schema:composer, schema:isPartOf, schema:genre, schema:inLanguage, 
+        schema:lyricist, schema:producer, schema:dateCreated, schema:author, schema:isBasedOn, schema:about, schema:award, 
+        schema:creator, schema:contributor, schema:publisher, schema:translator)) 
+    """
+
+
+def prepare_queery(form_params):
     query_string = """
             SELECT ?item ?prop ?val
             WHERE {
                 ?item rdf:type schema:MusicComposition ;
-                    ?prop ?val .
-                FILTER(?prop IN (<""" + \
-                   ">, <".join(params) + \
-                   """>))
+                    ?prop ?val .""" + \
+                   get_chosen_properties_filter() + \
+                   prepare_filter_string(form_params) + \
+                   """
            }
-           LIMIT 1000
+           LIMIT 100000
            """
     return query_string
 
@@ -30,12 +45,12 @@ def get_namespaces():
     return ns
 
 
-#ex params: {'http://www.w3.org/2000/01/rdf-schema#label' : 'pioseneczka', 'http://schema.org/dateCreated': '2010'}
+# ex params: {'props' : {'http://www.w3.org/2000/01/rdf-schema#label' : 'pioseneczka', 'http://schema.org/dateCreated': '2010'}}
 
-def query(query_params):
+def query(form_params):
     namespaces = get_namespaces()
     sparql_store = SPARQLStore("https://yago-knowledge.org/sparql/query")
-    query_string = prepare_queery(query_params)
+    query_string = prepare_queery(form_params)
     result = sparql_store.query(query_string, initNs=namespaces)
     # for row in list(result):
     #     print(row)
@@ -55,10 +70,7 @@ def reformat_results(results):
             val = parser.parse(str(result[2])).year
         else:
             val = result[2]
-        #print(val)
+        # print(val)
         ret[str(result[0])].append({"prop": str(result[1]), "val": val})
     return ret
 
-
-# results = rdf_query()
-# response = reformat_results_rdf(results)

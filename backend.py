@@ -8,12 +8,13 @@ from scoring import calculate_score_for_all
 
 
 def prepare_object(params):
-    return [{'prop': prop, 'val': rdflib.term.Literal(params[prop])} for prop in params.keys()]
+    return [{'prop': prop, 'val': rdflib.term.Literal(params['props'][prop])}
+            for prop in params['props'].keys() if params['props'][prop] != '']
 
 
-def scores_for_query(query_params):
-    results = query(query_params)
-    prepared = prepare_object(query_params)
+def scores_for_query(form_params):
+    results = query(form_params)
+    prepared = prepare_object(form_params)
     return calculate_score_for_all(prepared, results)
 
 
