@@ -1,0 +1,21 @@
+{
+    "http://www.w3.org/2000/01/rdf-schema#label": 489708,
+    "http://www.w3.org/2000/01/rdf-schema#comment": 236026,
+    "http://schema.org/alternateName": 68216,
+    "http://schema.org/datePublished": 37876,
+    "http://schema.org/composer": 19442,
+    "http://schema.org/isPartOf": 19064,
+    "http://schema.org/genre": 17011,
+    "http://schema.org/inLanguage": 12510,
+    "http://schema.org/lyricist": 9504,
+    "http://schema.org/producer": 7425,
+    "http://schema.org/dateCreated": 1111,
+    "http://schema.org/author": 609,
+    "http://schema.org/isBasedOn": 333,
+    "http://schema.org/about": 287,
+    "http://schema.org/award": 130,
+    "http://schema.org/creator": 83,
+    "http://schema.org/contributor": 50,
+    "http://schema.org/publisher": 43,
+    "http://schema.org/translator": 35
+}

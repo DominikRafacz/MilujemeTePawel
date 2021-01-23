@@ -23,17 +23,15 @@ sparql.setReturnFormat(JSON)
 results = sparql.query().convert()
 
 
-tmp = {}
+prop = {}
 for result in results["results"]["bindings"]:
-    try:
-        tmp[result['item']['value']]
-    except (KeyError) as e:
-        tmp[result['item']['value']] = []
+    # try:
+    #     prop[result['prop']['value']]
+    # except (KeyError) as e:
+    #     prop[result['prop']['value']] = set()
 
-    if result['prop']['value'] in ("http://schema.org/dateCreated", "http://schema.org/datePublished"):
-        result['val']['value'] = parser.parse(result['val']['value']).year
-    tmp[result['item']['value']].append({"prop": result['prop'], "val": result['val']})
+    prop[result['prop']['value']] = result['val']['type']
 
-print(json.dumps(tmp, indent=4))
+print(json.dumps(prop, indent=4))
 
 
