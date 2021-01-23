@@ -10,20 +10,20 @@ def prepare_object(params):
         return json.load(file)
 
 
-def metrics_for_query(query_params):
+def scores_for_query(query_params):
     results = mock_query()
     prepared = prepare_object(query_params)
     return calculate_score_for_all(prepared, results)
 
 
-def save_metrics_for_query(scores):
+def save_scores(scores):
     file_hash = str(hash(str(scores)))
     with open('cache/' + file_hash + '.json', 'w') as file:
         json.dump(scores, file, indent=4)
     return file_hash
 
 
-def load_metrics_for_query(file_hash):
+def load_scores(file_hash):
     with open('cache/' + file_hash + '.json') as file:
         scores = json.load(file)
         return scores
