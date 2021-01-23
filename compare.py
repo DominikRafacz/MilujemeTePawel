@@ -50,4 +50,4 @@ def calculate_metric(obj_first, obj_second):
             lowest_distance = iterate_over_key(obj_first, obj_second, matched, key, Levenshtein.distance)
         scores[key] = 1 / (1 + lowest_distance)
     score = sum(scores.values()) / (len(matched) + len(mismatched) / 2)
-    return score
+    return {'total_score': score, 'partial_scores': scores}
