@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, send_file
 
 from YAGOTemplater.querying import check_form_params, reformat_results
 from YAGOTemplater.util import load_chosen_properties, EmptyFormException
@@ -43,6 +43,11 @@ def results(scores_hash):
 @app.route('/invalid_form')
 def invalid_form():
     return render_template('invalid_form.html')
+
+
+@app.route('/download')
+def download():
+    return send_file("../downloads/results.nt", as_attachment=True)
 
 
 if __name__ == '__main__':
