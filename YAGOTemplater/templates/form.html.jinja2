@@ -12,7 +12,34 @@
                 </tr>
             {% endfor %}
         </table>
-        <label for="filter-label"></label><input id="filter-label" name="filter-label">
+
+        <table style="border: 1px solid black">
+            <tr>
+                <td><label for="filter-http://schema.org/datePublished">http://schema.org/datePublished</label></td>
+                <td><input id="filter-http://schema.org/datePublished" name="filter-http://schema.org/datePublished"></td>
+            </tr>
+            <tr>
+                <td><label for="filter-http://schema.org/composer">http://schema.org/composer</label></td>
+                <td><input id="filter-http://schema.org/composer" name="filter-http://schema.org/composer"></td>
+            </tr>
+            <tr>
+                <td><label for="filter-http://schema.org/isPartOf">http://schema.org/isPartOf</label></td>
+                <td><input id="filter-http://schema.org/isPartOf" name="filter-http://schema.org/isPartOf"></td>
+            </tr>
+            <tr>
+                <td><label for="filter-http://schema.org/genre">http://schema.org/genre</label></td>
+                <td><input id="filter-http://schema.org/genre" name="filter-http://schema.org/genre"></td>
+            </tr>
+            <tr>
+                <td><label for="filter-http://schema.org/inLanguage">http://schema.org/inLanguage</label></td>
+                <td><input id="filter-http://schema.org/inLanguage" name="filter-http://schema.org/inLanguage"></td>
+            </tr>
+            <tr>
+                <td><label for="filter-http://schema.org/author">http://schema.org/author</label></td>
+                <td><input id="filter-http://schema.org/author" name="filter-http://schema.org/author"></td>
+            </tr>
+        </table>
+        <br>
         <input type="submit" value="Query!" formmethod="post">
     </form>
 </body>

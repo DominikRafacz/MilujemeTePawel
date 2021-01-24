@@ -80,7 +80,7 @@ def get_namespaces():
 def query(form_params):
     namespaces = get_namespaces()
     sparql_store = SPARQLStore("https://yago-knowledge.org/sparql/query")
-    query_string = prepare_queery(form_params)
+    query_string = prepare_query(form_params)
     result = sparql_store.query(query_string, initNs=namespaces)
     # for row in list(result):
     #     print(row)
