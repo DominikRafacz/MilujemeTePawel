@@ -1,13 +1,18 @@
 <!doctype html>
 <head>
     <title>Results</title>
-    <link rel="stylesheet" href="../static/results-style.css">
+    <link rel="stylesheet" href="../static/style.css">
 </head>
 <body>
     <div class="res_container">
         {% for entity in scores %}
         <div class="result">
-            {{ entity['entity'] }} <br>
+            {{ entity['entity_key'] }} <br>
+            <div class="result_entity">
+                {% for property in entity['entity'] %}
+                    {{ property['prop'] }} : {{ property['val'] }} <br>
+                {% endfor %}
+            </div>
             {{ entity['total_score'] }} <br>
             <a href="#" class="link_hide">Show score details</a>
             <a href="#" class="link_show">Hide</a>
