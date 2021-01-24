@@ -33,17 +33,17 @@ def prepare_filter_string(form_params):
         elif key == "http://schema.org/datePublishedTo":
             if form_params["http://schema.org/datePublishedTo"] is not None:
                 lower += "FILTER(year(?date) <= year(\"" + form_params["http://schema.org/datePublishedTo"] \
-                         + "\"^^xsd:date)) .\n"
+                         + "\"^^xsd:date)) .\n
         elif key == "http://schema.org/composer":
-            lower += "FILTER(?composer = <" + form_params["http://schema.org/composer"] + "> .\n"
+            lower += "FILTER(?composer = <" + form_params["http://schema.org/composer"] + ">) .\n"
         elif key == "http://schema.org/isPartOf":
-            lower += "FILTER(?isPartOf = <" + form_params["http://schema.org/isPartOf"] + "> .\n"
+            lower += "FILTER(?isPartOf = <" + form_params["http://schema.org/isPartOf"] + ">) .\n"
         elif key == "http://schema.org/genre":
-            lower += "FILTER(?genre = <" + form_params["http://schema.org/genre"] + "> .\n"
+            lower += "FILTER(?genre = <" + form_params["http://schema.org/genre"] + ">) .\n"
         elif key == "http://schema.org/inLanguage":
-            lower += "FILTER(?inLanguage = <" + form_params["http://schema.org/inLanguage"] + "> .\n"
+            lower += "FILTER(?inLanguage = <" + form_params["http://schema.org/inLanguage"] + ">) .\n"
         elif key == "http://schema.org/author":
-            lower += "FILTER(?author = <" + form_params["http://schema.org/author"] + "> .\n"
+            lower += "FILTER(?author = <" + form_params["http://schema.org/author"] + ">) .\n"
 
     return upper + lower
 
