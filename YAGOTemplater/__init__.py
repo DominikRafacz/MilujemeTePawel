@@ -24,6 +24,10 @@ def form():
             check_form_params(form_params)
         except EmptyFormException:
             return redirect('invalid_form')
+        print(request.form)
+        if request.form['option-save'] == 'on':
+            save_template(form_params)
+            return redirect(url_for('download_template'))
         query_results = query(form_params)
         save_results(query_results)
         query_results = reformat_results(query_results)
@@ -31,6 +35,8 @@ def form():
         scores = calculate_score_for_all(prepared, query_results)
         scores_hash = save_scores(scores)
         return redirect(url_for('results', scores_hash=scores_hash))
+    if request.method == 'GET':
+        print(request.form)
     return render_template('form.html.jinja2', fields=fields)
 
 
@@ -45,9 +51,14 @@ def invalid_form():
     return render_template('invalid_form.html')
 
 
-@app.route('/download')
-def download():
+@app.route('/download_results')
+def download_results():
     return send_file("../downloads/results.nt", as_attachment=True)
+
+
+@app.route('/download_template')
+def download_template():
+    return send_file("../downloads/template.nt", as_attachment=True)
 
 
 if __name__ == '__main__':
