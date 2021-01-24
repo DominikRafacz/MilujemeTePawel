@@ -61,7 +61,7 @@ def prepare_query(form_params):
                 ?item rdf:type schema:MusicComposition ;
                     ?prop ?val .""" + \
                    get_chosen_properties_filter() + \
-                   prepare_filter_string(form_params) + \
+                   prepare_filter_string(form_params['filters']) + \
                    """
            }
            LIMIT 10000
@@ -80,7 +80,7 @@ def get_namespaces():
 def query(form_params):
     namespaces = get_namespaces()
     sparql_store = SPARQLStore("https://yago-knowledge.org/sparql/query")
-    query_string = prepare_queery(form_params)
+    query_string = prepare_query(form_params)
     result = sparql_store.query(query_string, initNs=namespaces)
     # for row in list(result):
     #     print(row)
