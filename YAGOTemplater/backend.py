@@ -5,6 +5,9 @@ import rdflib
 from YAGOTemplater.querying import query
 from YAGOTemplater.scoring import calculate_score_for_all
 
+rdflib.plugin.register('nt', rdflib.plugin.ResultParser, 'rdflib.plugins.parsers.nt', 'NTParser')
+rdflib.plugin.register('nt', rdflib.plugin.ResultSerializer, 'rdflib.plugins.serializers.nt', 'NTSerializer')
+
 
 def prepare_object(params):
     return [{'prop': prop, 'val': rdflib.term.Literal(params['props'][prop])}
@@ -31,5 +34,5 @@ def load_scores(file_hash):
 
 
 def save_results(query_results):
-    #query_results.serialize(destination='downloads/results.ttl', format='turtle')
+    query_results.serialize(destination='downloads/results.nt', format='nt')
     pass
