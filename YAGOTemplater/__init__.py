@@ -18,8 +18,8 @@ def index():
 @app.route('/form', methods=('GET', 'POST'))
 def form():
     if request.method == 'POST':
-        form_params = {'props': {field: URIRef(request.form['param-' + field]) if request.form['param-' + field][:7] == 'http://' else Literal(request.form['param-' + field]) for field in fields},
-                       'filters': {field: request.form['filters-' + field] for field in fields if 'filters-' + field in request.form.keys()}}
+        form_params = {'props': {field: URIRef(request.form['param-' + field]) if request.form['param-' + field][:7] == 'http://' else Literal(request.form['param-' + field]) for field in fields if request.form['param-' + field] != ''},
+                       'filters': {field: request.form['filters-' + field] for field in fields if 'filters-' + field in request.form.keys() and request.form['filters-' + field] != ''}}
         try:
             check_form_params(form_params)
         except EmptyFormException:
