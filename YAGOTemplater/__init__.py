@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, redirect, url_for
 from YAGOTemplater.querying import check_form_params, reformat_results
 from YAGOTemplater.util import load_chosen_properties, EmptyFormException
 from YAGOTemplater.backend import *
+from rdflib.term import URIRef, Literal
 
 app = Flask(__name__)
 
@@ -17,8 +18,8 @@ def index():
 @app.route('/form', methods=('GET', 'POST'))
 def form():
     if request.method == 'POST':
-        form_params = {'props': {field: request.form['param-' + field] for field in fields},
-                       'filters': {}}
+        form_params = {'props': {field: URIRef(request.form['param-' + field]) if request.form['param-' + field][:7] == 'http://' else Literal(request.form['param-' + field]) for field in fields},
+                       'filters': {field: request.form['filters-' + field] for field in fields}}
         try:
             check_form_params(form_params)
         except EmptyFormException:
