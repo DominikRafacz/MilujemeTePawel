@@ -2,12 +2,12 @@ import dateutil.parser as parser
 from rdflib import Namespace
 from rdflib.namespace import FOAF, RDF, RDFS, XSD
 from rdflib.plugins.stores.sparqlstore import SPARQLStore
-# from YAGOTemplater.util import EmptyFormException
-#
-#
-# def check_form_params(form_params):
-#     if all(map(lambda key: (form_params['props'][key] == ''), form_params['props'].keys())):
-#         raise EmptyFormException('Form has no field filled')
+from YAGOTemplater.util import EmptyFormException
+
+
+def check_form_params(form_params):
+    if all(map(lambda key: (form_params['props'][key] == ''), form_params['props'].keys())):
+        raise EmptyFormException('Form has no field filled')
 
 
 # mock
