@@ -33,7 +33,7 @@ def prepare_filter_string(form_params):
         elif key == "http://schema.org/datePublishedTo":
             if form_params["http://schema.org/datePublishedTo"] is not None:
                 lower += "FILTER(year(?date) <= year(\"" + form_params["http://schema.org/datePublishedTo"] \
-                         + "\"^^xsd:date)) .\n
+                         + "\"^^xsd:date)) .\n"
         elif key == "http://schema.org/composer":
             lower += "FILTER(?composer = <" + form_params["http://schema.org/composer"] + ">) .\n"
         elif key == "http://schema.org/isPartOf":
