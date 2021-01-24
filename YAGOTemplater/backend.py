@@ -1,10 +1,9 @@
 import json
 
 import rdflib
-from rdflib.term import Literal
 
-from querying import query
-from scoring import calculate_score_for_all
+from YAGOTemplater.querying import query
+from YAGOTemplater.scoring import calculate_score_for_all
 
 
 def prepare_object(params):
@@ -29,3 +28,8 @@ def load_scores(file_hash):
     with open('cache/' + file_hash + '.json') as file:
         scores = json.load(file)
         return scores
+
+
+def save_results(query_results):
+    #query_results.serialize(destination='downloads/results.ttl', format='turtle')
+    pass

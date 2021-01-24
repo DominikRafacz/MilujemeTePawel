@@ -8,3 +8,9 @@ venv/
 .python-version
 
 cache/*.json
+
+build/
+
+dist/
+
+YAGO_Search_Song_By_Template.egg-info/

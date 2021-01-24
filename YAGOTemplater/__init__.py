@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for
 
-from querying import check_form_params
-from util import load_chosen_properties, EmptyFormException
-from backend import *
+from YAGOTemplater.querying import check_form_params, reformat_results
+from YAGOTemplater.util import load_chosen_properties, EmptyFormException
+from YAGOTemplater.backend import *
 
 app = Flask(__name__)
 
@@ -22,7 +22,11 @@ def form():
             check_form_params(form_params)
         except EmptyFormException:
             return redirect('invalid_form')
-        scores = scores_for_query(form_params)
+        query_results = query(form_params)
+        save_results(query_results)
+        query_results = reformat_results(query_results)
+        prepared = prepare_object(form_params)
+        scores = calculate_score_for_all(prepared, query_results)
         scores_hash = save_scores(scores)
         return redirect(url_for('results', scores_hash=scores_hash))
     return render_template('form.html.jinja2', fields=fields)

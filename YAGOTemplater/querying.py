@@ -2,7 +2,7 @@ import dateutil.parser as parser
 from rdflib import Namespace
 from rdflib.namespace import FOAF, RDF, RDFS, XSD
 from rdflib.plugins.stores.sparqlstore import SPARQLStore
-from util import EmptyFormException
+from YAGOTemplater.util import EmptyFormException
 
 
 def check_form_params(form_params):
@@ -54,7 +54,7 @@ def query(form_params):
     result = sparql_store.query(query_string, initNs=namespaces)
     # for row in list(result):
     #     print(row)
-    return reformat_results(result)
+    return result
 
 
 # returns dict: '<entity_uri>' : [{'prop' : '<property_uri>', 'val': } ...]
