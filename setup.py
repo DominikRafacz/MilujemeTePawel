@@ -12,10 +12,10 @@ setup(
     ],
     entry_points={
         'rdf.plugins.parser': [
-            'turtle =     rdf.plugins.parsers.turtle:TurtleParser',
+            'nt =     rdf.plugins.parsers.nt:NTParser',
         ],
         'rdf.plugins.serializer': [
-            'turtle =     rdf.plugins.serializers.TurtleSerializer:TurtleSerializer',
+            'nt =     rdf.plugins.serializers.NTSerializer:NTSerializer',
         ],
     }
 )
