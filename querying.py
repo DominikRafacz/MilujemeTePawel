@@ -91,5 +91,5 @@ def reformat_results_rdf(results):
     return ret
 
 
-# results = rdf_query()
-# response = reformat_results_rdf(results)
+results = rdf_query()
+response = reformat_results_rdf(results)
