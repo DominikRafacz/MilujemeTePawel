@@ -7,11 +7,12 @@
         <table style="border: 1px solid black">
             {% for field in fields %}
                 <tr>
-                    <td><label for="{{ field }}">{{ field }}</label></td>
-                    <td><input type="text" id="{{ field }}" name="{{ field }}"></td>
+                    <td><label for="param-{{ field }}">{{ field }}</label></td>
+                    <td><input type="text" id="param-{{ field }}" name="param-{{ field }}"></td>
                 </tr>
             {% endfor %}
         </table>
+        <label for="filter-label"></label><input id="filter-label" name="filter-label">
         <input type="submit" value="Query!" formmethod="post">
     </form>
 </body>
