@@ -61,7 +61,7 @@ def prepare_query(form_params):
                 ?item rdf:type schema:MusicComposition ;
                     ?prop ?val .""" + \
                    get_chosen_properties_filter() + \
-                   prepare_filter_string(form_params) + \
+                   prepare_filter_string(form_params['filters']) + \
                    """
            }
            LIMIT 10000
