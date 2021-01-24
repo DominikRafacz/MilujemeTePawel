@@ -19,7 +19,7 @@ def index():
 def form():
     if request.method == 'POST':
         form_params = {'props': {field: URIRef(request.form['param-' + field]) if request.form['param-' + field][:7] == 'http://' else Literal(request.form['param-' + field]) for field in fields if request.form['param-' + field] != ''},
-                       'filters': {field: request.form['filters-' + field] for field in fields if 'filters-' + field in request.form.keys() and request.form['filters-' + field] != ''}}
+                       'filters': {field[8:]: request.form[field] for field in list(request.form.keys()) if field[:8] == 'filters-' and request.form[field] != ''}}
         try:
             check_form_params(form_params)
         except EmptyFormException:

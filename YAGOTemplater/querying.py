@@ -3,6 +3,7 @@ from rdflib import Namespace
 from rdflib.namespace import FOAF, RDF, RDFS, XSD
 from rdflib.plugins.stores.sparqlstore import SPARQLStore
 from YAGOTemplater.util import EmptyFormException
+import json
 
 
 def check_form_params(form_params):
@@ -13,7 +14,8 @@ def check_form_params(form_params):
 # mock
 def prepare_filter_string(form_params):
     parms_getters = {
-        "http://schema.org/datePublished": "?item <http://schema.org/datePublished> ?date .",
+        "http://schema.org/datePublishedFrom": "?item <http://schema.org/datePublished> ?date .",
+        "http://schema.org/datePublishedTo": "?item <http://schema.org/datePublished> ?date .",
         "http://schema.org/composer": "?item <http://schema.org/composer> ?composer .",
         "http://schema.org/isPartOf": "?item <http://schema.org/isPartOf> ?isPartOf .",
         "http://schema.org/genre": "?item <http://schema.org/genre> ?genre .",
@@ -24,13 +26,14 @@ def prepare_filter_string(form_params):
     lower = ''
     for key in list(form_params.keys()):
         upper += parms_getters[key] + "\n"
-        if key == "http://schema.org/datePublished":
-            if form_params["http://schema.org/datePublished"]["from"] is not None:
-                lower += "FILTER(year(?date) >= year(" + form_params["http://schema.org/datePublished"]["from"] \
-                         + "^^xsd:date)) .\n"
-            if form_params["http://schema.org/datePublished"]["to"] is not None:
-                lower += "FILTER(year(?date) <= year(" + form_params["http://schema.org/datePublished"]["to"] \
-                         + "^^xsd:date)) .\n"
+        if key == "http://schema.org/datePublishedFrom":
+            if form_params["http://schema.org/datePublishedFrom"] is not None:
+                lower += "FILTER(year(?date) >= year(\"" + form_params["http://schema.org/datePublishedFrom"] \
+                         + "\"^^xsd:date)) .\n"
+        elif key == "http://schema.org/datePublishedTo":
+            if form_params["http://schema.org/datePublishedTo"] is not None:
+                lower += "FILTER(year(?date) <= year(\"" + form_params["http://schema.org/datePublishedTo"] \
+                         + "\"^^xsd:date)) .\n"
         elif key == "http://schema.org/composer":
             lower += "FILTER(?composer = <" + form_params["http://schema.org/composer"] + "> .\n"
         elif key == "http://schema.org/isPartOf":
@@ -66,6 +69,8 @@ def prepare_query(form_params):
            }
            LIMIT 10000
            """
+    print(json.dumps(form_params, indent=4))
+    print(query_string)
     return query_string
 
 
