@@ -17,7 +17,8 @@ def index():
 @app.route('/form', methods=('GET', 'POST'))
 def form():
     if request.method == 'POST':
-        form_params = {'props': {field: request.form[field] for field in fields}}
+        form_params = {'props': {field: request.form['param-' + field] for field in fields},
+                       'filters': {}}
         try:
             check_form_params(form_params)
         except EmptyFormException:
