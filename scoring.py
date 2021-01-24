@@ -54,7 +54,8 @@ def calculate_score(obj_first, obj_second):
 
 
 def calculate_score_for_all(obj_first, obj_others):
-    return sorted([{'entity': key,
+    return sorted([{'entity_key': key,
+                    'entity': obj_others[key],
                     'total_score': (sc := calculate_score(obj_first, obj_others[key]))[0],
                     'scores': sc[1]}
                    for key in obj_others.keys()], key=lambda ent: -ent['total_score'])

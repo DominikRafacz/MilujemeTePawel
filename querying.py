@@ -34,7 +34,7 @@ def prepare_queery(form_params):
                    prepare_filter_string(form_params) + \
                    """
            }
-           LIMIT 100000
+           LIMIT 10000
            """
     return query_string
 
