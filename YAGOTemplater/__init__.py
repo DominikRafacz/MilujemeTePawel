@@ -31,7 +31,7 @@ def form():
         except EmptyFormException:
             return redirect('invalid_form')
         print(request.form)
-        if request.form['option-save'] == 'on':
+        if 'option-save' in request.form.keys() and request.form['option-save'] == 'on':
             save_template(form_params)
             return redirect(url_for('download_template'))
         query_results = query(form_params)

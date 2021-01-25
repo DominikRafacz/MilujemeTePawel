@@ -3,7 +3,7 @@
     <title>Query</title>
 </head>
 <body>
-    <form action="{{ url_for('form', uploaded=False) }}">
+    <form action="{{ url_for('form') }}">
         <table style="border: 1px solid black">
             {% for field in fields %}
                 <tr>
