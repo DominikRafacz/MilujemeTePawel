@@ -1,14 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for, send_file
 
 from YAGOTemplater.querying import check_form_params, reformat_results
-from YAGOTemplater.util import load_chosen_properties, EmptyFormException
+from YAGOTemplater.util import load_chosen_properties, EmptyFormException, extract_params
 from YAGOTemplater.backend import *
-from rdflib.term import URIRef, Literal
-
 
 app = Flask(__name__)
-app.config["FILE_UPLOADS"] = os.path.join(os.getcwd(), '..', 'uploads')
-
 fields = load_chosen_properties()
 
 
@@ -21,18 +17,15 @@ def index():
 def form():
     if request.method == 'POST':
         if 'file' in request.files:
-            print("jaha!")
-            load_template(request.files['file'])
+            upload_template(request.files['file'])
             return redirect(request.url)
-        form_params = {'props': {field: URIRef(request.form['param-' + field]) if request.form['param-' + field][:7] == 'http://' else Literal(request.form['param-' + field]) for field in fields if request.form['param-' + field] != ''},
-                       'filters': {field[8:]: request.form[field] for field in list(request.form.keys()) if field[:8] == 'filters-' and request.form[field] != ''}}
+        form_params = extract_params(request, fields)
         try:
             check_form_params(form_params)
         except EmptyFormException:
             return redirect('invalid_form')
-        print(request.form)
         if 'option-save' in request.form.keys() and request.form['option-save'] == 'on':
-            save_template(form_params)
+            store_template_for_download(form_params)
             return redirect(url_for('download_template'))
         query_results = query(form_params)
         save_results(query_results)
@@ -42,7 +35,6 @@ def form():
         scores_hash = save_scores(scores)
         return redirect(url_for('results', scores_hash=scores_hash))
     template = read_template()
-    print(template)
     return render_template('form.html.jinja2', fields=fields, template=template)
 
 

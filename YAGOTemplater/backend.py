@@ -39,7 +39,7 @@ def save_results(query_results):
     query_results.serialize(destination='downloads/results.nt', format='nt')
 
 
-def save_template(form_params):
+def store_template_for_download(form_params):
     g = rdflib.Graph()
     for prop in form_params['props'].keys():
         g.add((rdflib.URIRef(prop), similar_to, form_params['props'][prop]))
@@ -54,7 +54,7 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() == 'nt'
 
 
-def load_template(file):
+def upload_template(file):
     print(os.getcwd())
     if file and allowed_file(file.filename):
         file.save(os.path.join(os.getcwd(), 'uploads', 'template.nt'))

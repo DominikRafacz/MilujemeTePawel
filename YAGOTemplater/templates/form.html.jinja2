@@ -30,8 +30,8 @@
                                 value="{{ template['filters-http://schema.org/datePublishedFrom'] }}"
                            {% else %}
                                 placeholder="From"
-                           {% endif %}></td>
-                <td><input id="filters-http://schema.org/datePublishedTo"
+                           {% endif %}>
+                    <input id="filters-http://schema.org/datePublishedTo"
                            name="filters-http://schema.org/datePublishedTo"
                            {% if 'filters-http://schema.org/datePublishedTo' in template.keys() %}
                                 value="{{ template['filters-http://schema.org/datePublishedTo'] }}"
