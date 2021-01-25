@@ -31,7 +31,7 @@
 
  /* Style buttons */
 .btn {
-  background-color: DodgerBlue;
+  background-color: #3d4d5b;
   border: none;
   color: white;
   padding: 12px 30px;
@@ -66,4 +66,9 @@
 
 .load_template_query {
     margin: 0 auto;
+}
+
+.download_section {
+     margin: 5px auto;
+    width: 80%;
 }

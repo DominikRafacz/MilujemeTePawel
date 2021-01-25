@@ -35,6 +35,20 @@ def load_scores(file_hash):
         return scores
 
 
+def trim_scores(scores):
+    ret = []
+    for entity in scores:
+        mapped_ent = {}
+        for prop in entity['entity']:
+            if prop['prop'] not in entity.keys():
+                mapped_ent[prop['prop']] = prop['val']
+        ret.append({'entity': mapped_ent,
+                    'entity_key': entity['entity_key'],
+                    'total_score': entity['total_score'],
+                    'scores': entity['scores']})
+    return ret
+
+
 def save_results(query_results):
     query_results.serialize(destination='downloads/results.nt', format='nt')
 

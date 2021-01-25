@@ -41,6 +41,7 @@ def form():
 @app.route('/results/<scores_hash>')
 def results(scores_hash):
     scores = load_scores(scores_hash)
+    scores = trim_scores(scores)
     return render_template('results.html.jinja2', scores=scores)
 
 

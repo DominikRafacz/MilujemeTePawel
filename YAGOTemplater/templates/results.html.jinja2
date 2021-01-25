@@ -5,21 +5,21 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+    <div class="res_container">
     <div class="download_section">
         <a href="{{ url_for('.download_results') }}">
-            <button class="btn" style="width:100%"><i class="fa fa-download"></i> Pobierz wyniki</button>
+            <button class="btn" style="width:100%;"><i class="fa fa-download"></i> Pobierz wyniki</button>
         </a>
     </div>
-    <div class="res_container">
         {% for entity in scores %}
         <div class="result">
-            {{ entity['entity_key'] }} <br>
+            <h1 style="text-align: center">{{ entity['entity_key'] }}</h1> <br>
             <div class="result_entity">
-                {% for property in entity['entity'] %}
-                    {{ property['prop'] }} : {{ property['val'] }} <br>
+                {% for property in entity['entity'].keys() %}
+                    {{ property }} : {{ entity['entity']['property'] }} <br>
                 {% endfor %}
             </div>
-            {{ entity['total_score'] }} <br>
+            {{ entity['total_score'] }} <br><br>
             <a href="#" class="link_hide">Show score details</a>
             <a href="#" class="link_show">Hide</a>
             <div class="result_details">
