@@ -1,4 +1,5 @@
 import json
+import os
 
 import rdflib
 
@@ -46,3 +47,31 @@ def save_template(form_params):
         if key in form_params['filters'].keys():
             g.add((rdflib.URIRef(prop), filter_prop, rdflib.Literal(form_params['filters'][key])))
     g.serialize(destination='downloads/template.nt', format='nt')
+
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() == 'nt'
+
+
+def load_template(file):
+    print(os.getcwd())
+    if file and allowed_file(file.filename):
+        file.save(os.path.join(os.getcwd(), 'uploads', 'template.nt'))
+
+
+def read_template():
+    if os.path.exists('uploads/template.nt'):
+        g = rdflib.Graph()
+        g.parse('uploads/template.nt', format='nt')
+        os.remove('uploads/template.nt')
+        return parse_template(g)
+    else:
+        return {}
+
+
+def parse_template(graph):
+    ret = {}
+    for (s, p, o) in graph:
+        ret[str(s)] = str(o)
+    return ret

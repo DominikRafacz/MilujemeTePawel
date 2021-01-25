@@ -5,7 +5,9 @@ from YAGOTemplater.util import load_chosen_properties, EmptyFormException
 from YAGOTemplater.backend import *
 from rdflib.term import URIRef, Literal
 
+
 app = Flask(__name__)
+app.config["FILE_UPLOADS"] = os.path.join(os.getcwd(), '..', 'uploads')
 
 fields = load_chosen_properties()
 
@@ -15,9 +17,13 @@ def index():
     return redirect(url_for('form'))
 
 
-@app.route('/form', methods=('GET', 'POST'))
+@app.route('/form/', methods=('GET', 'POST'))
 def form():
     if request.method == 'POST':
+        if 'file' in request.files:
+            print("jaha!")
+            load_template(request.files['file'])
+            return redirect(request.url)
         form_params = {'props': {field: URIRef(request.form['param-' + field]) if request.form['param-' + field][:7] == 'http://' else Literal(request.form['param-' + field]) for field in fields if request.form['param-' + field] != ''},
                        'filters': {field[8:]: request.form[field] for field in list(request.form.keys()) if field[:8] == 'filters-' and request.form[field] != ''}}
         try:
@@ -35,9 +41,9 @@ def form():
         scores = calculate_score_for_all(prepared, query_results)
         scores_hash = save_scores(scores)
         return redirect(url_for('results', scores_hash=scores_hash))
-    if request.method == 'GET':
-        print(request.form)
-    return render_template('form.html.jinja2', fields=fields)
+    template = read_template()
+    print(template)
+    return render_template('form.html.jinja2', fields=fields, template=template)
 
 
 @app.route('/results/<scores_hash>')
