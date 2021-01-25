@@ -73,5 +73,12 @@ def read_template():
 def parse_template(graph):
     ret = {}
     for (s, p, o) in graph:
-        ret[str(s)] = str(o)
+        if p == rdflib.term.URIRef('http://templater.yago.spd.mini.pw.edu.pl/equal_to'):
+            ret['filters-' + str(s)] = str(o)
+        elif p == rdflib.term.URIRef('http://templater.yago.spd.mini.pw.edu.pl/lower_bound'):
+            ret['filters-' + str(s) + "From"] = str(o)
+        elif p == rdflib.term.URIRef('http://templater.yago.spd.mini.pw.edu.pl/upper_bound'):
+            ret['filters-' + str(s) + "To"] = str(o)
+        if p == rdflib.term.URIRef('http://templater.yago.spd.mini.pw.edu.pl/similar_to'):
+            ret['param-' + str(s)] = str(o)
     return ret

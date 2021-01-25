@@ -8,7 +8,12 @@
             {% for field in fields %}
                 <tr>
                     <td><label for="param-{{ field }}">{{ field }}</label></td>
-                    <td><input type="text" id="param-{{ field }}" name="param-{{ field }}"></td>
+                    <td><input type="text"
+                               id="param-{{ field }}"
+                               name="param-{{ field }}"
+                                {% if 'param-' + field in template.keys() %}
+                                    value="{{ template['param-' + field] }}"
+                                {% endif %}></td>
                 </tr>
             {% endfor %}
         </table>
@@ -18,32 +23,55 @@
                 <td><label for="filters-http://schema.org/datePublished">http://schema.org/datePublished</label></td>
                 <td><input id="filters-http://schema.org/datePublishedFrom"
                            name="filters-http://schema.org/datePublishedFrom"
-                           placeholder="From"></td>
-                <td><input id="filters-http://schema.org/datePublishedTo" name="filters-http://schema.org/datePublishedTo" placeholder="To"></td>
+                           {% if 'filters-http://schema.org/datePublishedFrom' in template.keys() %}
+                                value="{{ template['filters-http://schema.org/datePublishedFrom'] }}"
+                           {% else %}
+                                placeholder="From"
+                           {% endif %}></td>
+                <td><input id="filters-http://schema.org/datePublishedTo"
+                           name="filters-http://schema.org/datePublishedTo"
+                           {% if 'filters-http://schema.org/datePublishedTo' in template.keys() %}
+                                value="{{ template['filters-http://schema.org/datePublishedTo'] }}"
+                           {% else %}
+                                placeholder="To"
+                           {% endif %}></td>
             </tr>
             <tr>
                 <td><label for="filters-http://schema.org/composer">http://schema.org/composer</label></td>
                 <td><input id="filters-http://schema.org/composer"
                            name="filters-http://schema.org/composer"
-                           {% if 'http://schema.org/composer' in template.keys() %}
-                               value="{{ template['http://schema.org/composer'] }}"
-                {% endif %}></td>
+                           {% if 'filters-http://schema.org/composer' in template.keys() %}
+                               value="{{ template['filters-http://schema.org/composer'] }}"
+                           {% endif %}></td>
             </tr>
             <tr>
                 <td><label for="filters-http://schema.org/isPartOf">http://schema.org/isPartOf</label></td>
-                <td><input id="filters-http://schema.org/isPartOf" name="filters-http://schema.org/isPartOf"></td>
+                <td><input id="filters-http://schema.org/isPartOf"
+                           name="filters-http://schema.org/isPartOf"
+                           {% if 'filters-http://schema.org/isPartOf' in template.keys() %}
+                               value="{{ template['filters-http://schema.org/isPartOf'] }}"
+                           {% endif %}></td>
             </tr>
             <tr>
                 <td><label for="filters-http://schema.org/genre">http://schema.org/genre</label></td>
-                <td><input id="filters-http://schema.org/genre" name="filters-http://schema.org/genre"></td>
+                <td><input id="filters-http://schema.org/genre" name="filters-http://schema.org/genre"
+                           {% if 'filters-http://schema.org/genre' in template.keys() %}
+                               value="{{ template['filters-http://schema.org/genre'] }}"
+                           {% endif %}></td>
             </tr>
             <tr>
                 <td><label for="filters-http://schema.org/inLanguage">http://schema.org/inLanguage</label></td>
-                <td><input id="filters-http://schema.org/inLanguage" name="filters-http://schema.org/inLanguage"></td>
+                <td><input id="filters-http://schema.org/inLanguage" name="filters-http://schema.org/inLanguage"
+                           {% if 'filters-http://schema.org/inLanguage' in template.keys() %}
+                               value="{{ template['filters-http://schema.org/inLanguage'] }}"
+                           {% endif %}></td>
             </tr>
             <tr>
                 <td><label for="filters-http://schema.org/author">http://schema.org/author</label></td>
-                <td><input id="filters-http://schema.org/author" name="filters-http://schema.org/author"></td>
+                <td><input id="filters-http://schema.org/author" name="filters-http://schema.org/author"
+                           {% if 'filters-http://schema.org/author' in template.keys() %}
+                               value="{{ template['filters-http://schema.org/author'] }}"
+                           {% endif %}></td>
             </tr>
         </table>
         <br>
