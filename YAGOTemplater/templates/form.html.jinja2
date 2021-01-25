@@ -3,22 +3,25 @@
     <title>Query</title>
 </head>
 <body>
-    <form action="{{ url_for('form') }}">
-        <table style="border: 1px solid black">
-            {% for field in fields %}
-                <tr>
-                    <td><label for="param-{{ field }}">{{ field }}</label></td>
-                    <td><input type="text"
-                               id="param-{{ field }}"
-                               name="param-{{ field }}"
-                                {% if 'param-' + field in template.keys() %}
-                                    value="{{ template['param-' + field] }}"
-                                {% endif %}></td>
-                </tr>
-            {% endfor %}
-        </table>
-
-        <table style="border: 1px solid black">
+<div class="query">
+    <form action="{{ url_for('form') }}" class="query_form">
+        <div class="template_query">
+            <table style="border: 1px solid black">
+                {% for field in fields %}
+                    <tr>
+                        <td><label for="param-{{ field }}">{{ field }}</label></td>
+                        <td><input type="text"
+                                   id="param-{{ field }}"
+                                   name="param-{{ field }}"
+                                    {% if 'param-' + field in template.keys() %}
+                                        value="{{ template['param-' + field] }}"
+                                    {% endif %}></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="filter_query">
+            <table style="border: 1px solid black">
             <tr>
                 <td><label for="filters-http://schema.org/datePublished">http://schema.org/datePublished</label></td>
                 <td><input id="filters-http://schema.org/datePublishedFrom"
@@ -74,13 +77,19 @@
                            {% endif %}></td>
             </tr>
         </table>
-        <br>
-        <label for="option-save">Save template?</label>
-        <input id="option-save" type="checkbox" name="option-save">
-        <input type="submit" value="Query!" formmethod="post" >
+        </div>
+        <div class="save_query">
+            <br>
+            <label for="option-save">Save template?</label>
+            <input id="option-save" type="checkbox" name="option-save">
+            <input type="submit" value="Query!" formmethod="post" >
+        </div>
     </form>
-<form method=POST enctype="multipart/form-data">
-    <input type="file" id="saved-template" name="file">
-    <input type="submit" value="Load template" formmethod="post">
-</form>
+</div>
+<div class="load_template_query">
+    <form method=POST enctype="multipart/form-data">
+        <input type="file" id="saved-template" name="file">
+        <input type="submit" value="Load template" formmethod="post">
+    </form>
+</div>
 </body>

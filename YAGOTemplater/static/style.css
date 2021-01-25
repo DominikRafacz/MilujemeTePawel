@@ -43,3 +43,27 @@
 .btn:hover {
   background-color: RoyalBlue;
 }
+
+.query {
+    margin: 4px auto;
+    padding: 0px 10px;
+    background-color: #ffdba6;
+}
+
+.query_form {
+    display: flex;
+    flex-direction: column;
+}
+
+.template_query {
+    margin: 10px auto;
+}
+
+.save_query {
+    display: flex;
+    flex-direction: column;
+}
+
+.load_template_query {
+    margin: 0 auto;
+}
