@@ -1,1 +1,3 @@
-# MilujemeTePawel
+# YAGOTemplater
+
+(formerly: MilujemyTePawel)
