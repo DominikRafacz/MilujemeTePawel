@@ -1,11 +1,13 @@
 <!doctype html>
 <head>
     <title>Query</title>
+    <link rel="stylesheet" href="../static/style.css">
 </head>
 <body>
 <div class="query">
     <form action="{{ url_for('form') }}" class="query_form">
         <div class="template_query">
+            <h1 style="text-align: center"> Find objects of simillar properties: </h1>
             <table style="border: 1px solid black">
                 {% for field in fields %}
                     <tr>
@@ -20,7 +22,8 @@
                 {% endfor %}
             </table>
         </div>
-        <div class="filter_query">
+        <div class="filter_query" >
+            <h1  style="text-align: center"> Filter results down to: </h1>
             <table style="border: 1px solid black">
             <tr>
                 <td><label for="filters-http://schema.org/datePublished">http://schema.org/datePublished</label></td>
@@ -30,14 +33,16 @@
                                 value="{{ template['filters-http://schema.org/datePublishedFrom'] }}"
                            {% else %}
                                 placeholder="From"
-                           {% endif %}>
+                           {% endif %}
+                            style="width: 84px">
                     <input id="filters-http://schema.org/datePublishedTo"
                            name="filters-http://schema.org/datePublishedTo"
                            {% if 'filters-http://schema.org/datePublishedTo' in template.keys() %}
                                 value="{{ template['filters-http://schema.org/datePublishedTo'] }}"
                            {% else %}
                                 placeholder="To"
-                           {% endif %}></td>
+                           {% endif %}
+                            style="width: 84px"></td>
             </tr>
             <tr>
                 <td><label for="filters-http://schema.org/composer">http://schema.org/composer</label></td>
@@ -80,8 +85,10 @@
         </div>
         <div class="save_query">
             <br>
-            <label for="option-save">Save template?</label>
-            <input id="option-save" type="checkbox" name="option-save">
+            <div>
+                <label for="option-save">Save template?</label>
+                <input id="option-save" type="checkbox" name="option-save">
+            </div>
             <input type="submit" value="Query!" formmethod="post" >
         </div>
     </form>

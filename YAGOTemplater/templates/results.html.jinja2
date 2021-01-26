@@ -16,7 +16,7 @@
             <h1 style="text-align: center">{{ entity['entity_key'] }}</h1> <br>
             <div class="result_entity">
                 {% for property in entity['entity'].keys() %}
-                    {{ property }} : {{ entity['entity']['property'] }} <br>
+                    {{ property }} : {{ entity['entity'][property] }} <br>
                 {% endfor %}
             </div>
             {{ entity['total_score'] }} <br><br>
