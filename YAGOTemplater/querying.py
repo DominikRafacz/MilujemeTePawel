@@ -28,11 +28,11 @@ def prepare_filter_string(form_params):
         upper += parms_getters[key] + "\n"
         if key == "http://schema.org/datePublishedFrom":
             if form_params["http://schema.org/datePublishedFrom"] is not None:
-                lower += "FILTER(year(?date) >= year(\"" + form_params["http://schema.org/datePublishedFrom"] \
+                lower += "FILTER(year(strdt(str(?date), xsd:date )) >= year(\"" + form_params["http://schema.org/datePublishedFrom"] \
                          + "\"^^xsd:date)) .\n"
         elif key == "http://schema.org/datePublishedTo":
             if form_params["http://schema.org/datePublishedTo"] is not None:
-                lower += "FILTER(year(?date) <= year(\"" + form_params["http://schema.org/datePublishedTo"] \
+                lower += "FILTER(year(strdt(str(?date), xsd:date )) <= year(\"" + form_params["http://schema.org/datePublishedTo"] \
                          + "\"^^xsd:date)) .\n"
         elif key == "http://schema.org/composer":
             lower += "FILTER(?composer = <" + form_params["http://schema.org/composer"] + ">) .\n"
@@ -67,7 +67,6 @@ def prepare_query(form_params):
                    prepare_filter_string(form_params['filters']) + \
                    """
            }
-           LIMIT 10000
            """
     print(json.dumps(form_params, indent=4))
     print(query_string)
